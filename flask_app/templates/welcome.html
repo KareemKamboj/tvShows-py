@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+</head>
+<body>
+    <div class="d-flex justify-content-between">
+        <h1>Howdy {{user.first_name}}!</h1>
+            <a href="/shows/new" class="btn btn-primary">+ Create</a>
+            <a href="/users/logout" class="btn btn-danger">Logout</a>
+    </div>
+        <h3>All TV Shows:</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Network</th>
+                    <th>Release Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for show in all_shows%}
+                <tr>
+                    <td>{{show.title}}</td>
+                    <td>{{show.network}}</td>
+                    <td>{{show.date}}</td>
+                    <td>
+                        <a href="/shows/{{show.id}}">View show</a> 
+                        {% if session['user_id'] == show.user_id%}
+                        | <a href="/shows/{{show.id}}/edit">Edit</a> |
+                        <a href="/shows/{{show.id}}/delete">Delete</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+</body>
+</html>
